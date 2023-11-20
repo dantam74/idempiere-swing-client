@@ -380,7 +380,7 @@ public class VPaySelect extends PaySelect implements FormPanel, ActionListener, 
 		
 		ProcessParameterPanel pp = new ProcessParameterPanel(m_WindowNo, pi);
 		//	Execute Process
-		ProcessCtl.process(this, m_WindowNo, (IProcessParameter) pp, pi, trx);
+		ProcessCtl.process(this, m_WindowNo, (IProcessParameter) pp, pi, null);
 	//	ProcessCtl worker = new ProcessCtl(this, pi, trx);
 	//	worker.start();     //  complete tasks in unlockUI
 	}   //  generatePaySelect

@@ -47,6 +47,8 @@ import org.compiere.util.Msg;
  */
 public class VPaymentFormCheck extends PaymentFormCheck implements ActionListener, FocusListener {
 
+	private EMUCurrencyCache s_Currencies = new EMUCurrencyCache();	
+	
 	private VPaymentFormDialog dialog;
 	
 	private CLabel sBankAccountLabel = new CLabel();

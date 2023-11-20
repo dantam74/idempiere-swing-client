@@ -18,6 +18,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -29,6 +32,7 @@ import org.compiere.swing.CButton;
 import org.compiere.swing.CComboBox;
 import org.compiere.swing.CLabel;
 import org.compiere.swing.CTextField;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
@@ -156,4 +160,45 @@ public abstract class VPaymentFormDirect extends PaymentFormDirect implements Ac
 	public Object getWindow() {
 		return dialog;
 	}
+	
+	private ArrayList<KeyNamePair> getBPBankAccountList() {
+		ArrayList<KeyNamePair> list = new ArrayList<KeyNamePair>();
+		
+		/**
+		 * 	Load Accounts
+		 */
+		String SQL = "SELECT a.C_BP_BankAccount_ID, NVL(b.Name, ' ')||'_'||NVL(a.AccountNo, ' ') AS Acct "
+			+ "FROM C_BP_BankAccount a"
+			+ " LEFT OUTER JOIN C_Bank b ON (a.C_Bank_ID=b.C_Bank_ID) "
+			+ "WHERE C_BPartner_ID=?"
+			+ "AND a.IsActive='Y' AND a.IsACH='Y'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try
+		{
+			pstmt = DB.prepareStatement(SQL, null);
+			pstmt.setInt(1, m_C_BPartner_ID);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+			{
+				int key = rs.getInt(1);
+				String name = rs.getString(2);
+				KeyNamePair pp = new KeyNamePair(key, name);
+				list.add(pp);
+			}
+		}
+		catch (SQLException eac)
+		{
+			log.log(Level.SEVERE, SQL, eac);
+		}
+		finally
+		{
+			DB.close(rs, pstmt);
+			rs = null;
+			pstmt = null;
+		}
+		
+		return list;
+	}
+	
 }

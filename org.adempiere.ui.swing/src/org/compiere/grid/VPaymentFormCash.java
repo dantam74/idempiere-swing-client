@@ -43,6 +43,8 @@ import org.compiere.util.Msg;
  */
 public class VPaymentFormCash extends PaymentFormCash implements ActionListener {
 
+	private EMUCurrencyCache s_Currencies = new EMUCurrencyCache();
+	
 	private VPaymentFormDialog dialog;
 	
 	private CLabel bBankAccountLabel = new CLabel();
@@ -112,6 +114,7 @@ public class VPaymentFormCash extends PaymentFormCash implements ActionListener 
 		dialog.getPanel().add(bAmountField,  new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
 			,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 2, 5), 0, 0));
 	}
+
 	
 	@Override
 	public void loadData() {

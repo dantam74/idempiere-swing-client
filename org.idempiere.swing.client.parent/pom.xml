@@ -10,8 +10,9 @@
 	<name>Maven parent project for iDempiere Swing Client</name>
 
 	<properties>
-		<revision>10.0.0-SNAPSHOT</revision>
-		<tycho.version>2.7.5</tycho.version>
+		<revision>11.0.0-SNAPSHOT</revision>
+		<jdk.version>17</jdk.version>
+		<tycho.version>3.0.5</tycho.version>
 		<tycho.extras.version>${tycho.version}</tycho.extras.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.dependency.version>3.1.1</maven.dependency.version>
@@ -555,8 +556,8 @@
 						            <arch>x86_64</arch>
 					            </environment>
 				            </environments>
-                            <executionEnvironmentDefault>JavaSE-11</executionEnvironmentDefault>
-                            <executionEnvironment>JavaSE-11</executionEnvironment>
+			            <executionEnvironmentDefault>JavaSE-${jdk.version}</executionEnvironmentDefault>
+			            <executionEnvironment>JavaSE-${jdk.version}</executionEnvironment>
 			            </configuration>
 		            </plugin>
 				</plugins>
